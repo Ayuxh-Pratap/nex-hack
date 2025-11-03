@@ -2,10 +2,11 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { buttonVariants } from "@/components/ui/button";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { signInWithGoogle } from "@/store/slices/auth/authThunks";
+import { signInWithGoogle, signUpWithEmail } from "@/store/slices/auth/authThunks";
 import { toast } from "sonner";
+import { AuthContainer } from "@/components/auth/auth-container";
+import type { UserRole } from "@/types/auth";
 
 const SignUpPage = () => {
     const router = useRouter();
@@ -26,9 +27,31 @@ const SignUpPage = () => {
         }
     }, [error]);
 
-    const handleGoogleSignUp = async () => {
+    const handleGoogleSignUp = async (role: UserRole) => {
         try {
-            const result = await dispatch(signInWithGoogle()).unwrap();
+            const result = await dispatch(signInWithGoogle(role)).unwrap();
+            if (result) {
+                toast.success("Account created successfully!");
+                router.push("/chat");
+            }
+        } catch (err) {
+            // Error handled by thunk
+        }
+    };
+
+    const handleEmailSignUp = async (
+        data: { email: string; password: string; name?: string },
+        role: UserRole
+    ) => {
+        try {
+            const result = await dispatch(
+                signUpWithEmail({
+                    email: data.email,
+                    password: data.password,
+                    name: data.name,
+                    role,
+                })
+            ).unwrap();
             if (result) {
                 toast.success("Account created successfully!");
                 router.push("/chat");
@@ -39,26 +62,12 @@ const SignUpPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="flex flex-col items-center max-w-md px-4 mx-auto">
-                <h1 className="text-3xl font-bold mb-8">Sign Up</h1>
-                <div className="w-full space-y-4">
-                    <button
-                        onClick={handleGoogleSignUp}
-                        disabled={isLoading}
-                        className={buttonVariants({ className: "w-full" })}
-                    >
-                        {isLoading ? "Creating account..." : "Sign up with Google"}
-                    </button>
-                    <button
-                        onClick={() => router.push("/")}
-                        className={buttonVariants({ variant: "outline", className: "w-full" })}
-                    >
-                        Back to Home
-                    </button>
-                </div>
-            </div>
-        </div>
+        <AuthContainer
+            mode="signup"
+            onGoogleAuth={handleGoogleSignUp}
+            onEmailAuth={handleEmailSignUp}
+            isLoading={isLoading}
+        />
     );
 };
 

@@ -1,3 +1,6 @@
+// User roles
+export type UserRole = "teacher" | "student";
+
 // Auth types
 export interface User {
     id: string;
@@ -5,6 +8,7 @@ export interface User {
     name?: string;
     avatar?: string;
     emailVerified?: boolean;
+    role?: UserRole;
 }
 
 export interface AuthState {
@@ -19,6 +23,7 @@ export interface AuthState {
 // API Response types
 export interface TokenExchangeRequest {
     firebase_token: string;
+    role?: UserRole;
 }
 
 export interface TokenExchangeResponse {
