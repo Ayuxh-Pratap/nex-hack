@@ -51,7 +51,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-1",
                     title: "Introduction to React",
                     description: "Learn the fundamentals of React and why it's the most popular library for building user interfaces.",
-                    video_url: "https://example.com/video-1.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 1200, // 20 minutes
                     order: 1,
                     created_at: new Date().toISOString(),
@@ -72,7 +72,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-1",
                     title: "Components and Props",
                     description: "Understand how to create reusable components and pass data using props.",
-                    video_url: "https://example.com/video-2.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 1800, // 30 minutes
                     order: 2,
                     created_at: new Date().toISOString(),
@@ -83,7 +83,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-1",
                     title: "State and Hooks",
                     description: "Master useState and useEffect hooks to manage component state and side effects.",
-                    video_url: "https://example.com/video-3.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 2400, // 40 minutes
                     order: 3,
                     created_at: new Date().toISOString(),
@@ -94,7 +94,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-1",
                     title: "Context API",
                     description: "Learn how to use Context API to manage global state without prop drilling.",
-                    video_url: "https://example.com/video-4.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 1500, // 25 minutes
                     order: 4,
                     created_at: new Date().toISOString(),
@@ -105,7 +105,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-1",
                     title: "Building Your First App",
                     description: "Put everything together and build a complete React application.",
-                    video_url: "https://example.com/video-5.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 3600, // 60 minutes
                     order: 5,
                     created_at: new Date().toISOString(),
@@ -135,7 +135,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-2",
                     title: "Variables and Data Types",
                     description: "Learn about let, const, var and different data types in JavaScript.",
-                    video_url: "https://example.com/js-video-1.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 900, // 15 minutes
                     order: 1,
                     created_at: new Date().toISOString(),
@@ -146,7 +146,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-2",
                     title: "Functions and Scope",
                     description: "Master function declarations, arrow functions, and understand scope in JavaScript.",
-                    video_url: "https://example.com/js-video-2.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 1800, // 30 minutes
                     order: 2,
                     created_at: new Date().toISOString(),
@@ -157,7 +157,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-2",
                     title: "Async/Await and Promises",
                     description: "Understand asynchronous JavaScript with promises and async/await syntax.",
-                    video_url: "https://example.com/js-video-3.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 2100, // 35 minutes
                     order: 3,
                     created_at: new Date().toISOString(),
@@ -187,7 +187,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-3",
                     title: "TypeScript Setup",
                     description: "Learn how to set up TypeScript in your project and configure the compiler.",
-                    video_url: "https://example.com/ts-video-1.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 600, // 10 minutes
                     order: 1,
                     created_at: new Date().toISOString(),
@@ -198,7 +198,7 @@ const generateMockCourses = (): Course[] => {
                     course_id: "course-3",
                     title: "Basic Types",
                     description: "Understand TypeScript's type system and basic types.",
-                    video_url: "https://example.com/ts-video-2.mp4",
+                    video_url: "https://youtu.be/SR5NYCdzKkc?si=mHhHkg4U09Vz7Cgr",
                     duration: 1200, // 20 minutes
                     order: 2,
                     created_at: new Date().toISOString(),

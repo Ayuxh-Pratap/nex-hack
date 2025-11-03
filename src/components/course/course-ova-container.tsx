@@ -14,6 +14,52 @@ interface CourseOvaContainerProps {
     messages?: CourseMessage[];
 }
 
+// Helper function to convert YouTube URL to embed URL
+const getYouTubeEmbedUrl = (url: string): string | null => {
+    if (!url) return null;
+    
+    try {
+        // Extract video ID from various YouTube URL formats
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+            /youtube\.com\/v\/([^&\n?#]+)/,
+        ];
+        
+        let videoId: string | null = null;
+        let queryParams = new URLSearchParams();
+        
+        // Try to extract video ID
+        for (const pattern of patterns) {
+            const match = url.match(pattern);
+            if (match && match[1]) {
+                videoId = match[1];
+                break;
+            }
+        }
+        
+        if (!videoId) return null;
+        
+        // Extract query parameters from original URL (especially 'si' parameter)
+        try {
+            const urlObj = new URL(url);
+            const siParam = urlObj.searchParams.get('si');
+            if (siParam) {
+                queryParams.set('si', siParam);
+            } else {
+                // Default parameter if not present
+                queryParams.set('si', 'Di1J6_weFKVrHpyb');
+            }
+        } catch {
+            // If URL parsing fails, use default
+            queryParams.set('si', 'Di1J6_weFKVrHpyb');
+        }
+        
+        return `https://www.youtube.com/embed/${videoId}?${queryParams.toString()}`;
+    } catch {
+        return null;
+    }
+};
+
 const CourseOvaContainer = ({ user, course, courses, messages }: CourseOvaContainerProps) => {
     const [selectedLectureId, setSelectedLectureId] = useState<string | null>(
         course?.lectures[0]?.id || null
@@ -202,20 +248,34 @@ const CourseOvaContainer = ({ user, course, courses, messages }: CourseOvaContai
                                     <div className="absolute inset-0 rounded-xl border border-primary/10 pointer-events-none"></div>
                                     
                                     {selectedLecture.video_url ? (
-                                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
-                                            <div className="text-center space-y-4">
-                                                <div className="relative">
-                                                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl"></div>
-                                                    <Play className="h-20 w-20 mx-auto text-primary relative z-10" />
+                                        (() => {
+                                            const embedUrl = getYouTubeEmbedUrl(selectedLecture.video_url);
+                                            return embedUrl ? (
+                                                <iframe
+                                                    className="w-full h-full rounded-xl"
+                                                    src={embedUrl}
+                                                    title="YouTube video player"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    referrerPolicy="strict-origin-when-cross-origin"
+                                                    allowFullScreen
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
+                                                    <div className="text-center space-y-4">
+                                                        <div className="relative">
+                                                            <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl"></div>
+                                                            <Play className="h-20 w-20 mx-auto text-primary relative z-10" />
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-base font-medium">Video Player</p>
+                                                            <p className="text-xs text-muted-foreground mt-1">
+                                                                {selectedLecture.video_url}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <p className="text-base font-medium">Video Player</p>
-                                                    <p className="text-xs text-muted-foreground mt-1">
-                                                        {selectedLecture.video_url}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            );
+                                        })()
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center">
                                             <p className="text-muted-foreground">No video available</p>
