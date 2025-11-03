@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import Icons from '../global/icons';
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { CHAT_MODES, DEFAULT_CHAT_MODE } from "@/constants/chat";
 import type { ChatMode } from "@/types/chat";
 
@@ -32,8 +32,11 @@ interface Props {
 
 const ChatInput = ({ isLoading, handleSendMessage, onSearch }: Props) => {
     const searchParams = useSearchParams();
+    const pathname = usePathname();
     const mode = (searchParams.get('mode') as ChatMode) || DEFAULT_CHAT_MODE;
-    const isDriveMode = mode === CHAT_MODES.DRIVE;
+    const isCourseRoute = pathname?.startsWith('/course');
+    // For course routes, Drive mode is chat mode, not search mode
+    const isDriveMode = mode === CHAT_MODES.DRIVE && !isCourseRoute;
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);

@@ -16,7 +16,7 @@ const SignInPage = () => {
     // Redirect if already authenticated
     useEffect(() => {
         if (user) {
-            router.push("/chat");
+            router.push("/course");
         }
     }, [user, router]);
 
@@ -32,7 +32,7 @@ const SignInPage = () => {
             const result = await dispatch(signInWithGoogle(role)).unwrap();
             if (result) {
                 toast.success("Signed in successfully!");
-                router.push("/chat");
+                router.push("/course");
             }
         } catch (err) {
             // Error handled by thunk
@@ -49,7 +49,7 @@ const SignInPage = () => {
             ).unwrap();
             if (result) {
                 toast.success("Signed in successfully!");
-                router.push("/chat");
+                router.push("/course");
             }
         } catch (err) {
             // Error handled by thunk

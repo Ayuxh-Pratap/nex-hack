@@ -3,12 +3,15 @@
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useSidebar } from "@/hooks";
 import ChatList from "./chat-list";
+import CourseList from "./course-list";
 import Icons from "../global/icons";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
 
 const MobileSidebar = () => {
-
     const { isOpen, setIsOpen } = useSidebar();
+    const pathname = usePathname();
+    const isCourseRoute = pathname?.startsWith('/course');
 
     return (
         <Sheet>
@@ -25,7 +28,7 @@ const MobileSidebar = () => {
             <SheetContent side="left" show={false}>
                 <SheetHeader className="sr-only">
                     <SheetTitle>
-                        Chat history
+                        {isCourseRoute ? "Course list" : "Chat history"}
                     </SheetTitle>
                 </SheetHeader>
                 <SheetClose asChild>
@@ -40,7 +43,7 @@ const MobileSidebar = () => {
                 </SheetClose>
 
                 <div className="px-3">
-                    <ChatList />
+                    {isCourseRoute ? <CourseList /> : <ChatList />}
                 </div>
             </SheetContent>
         </Sheet>

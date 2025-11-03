@@ -16,7 +16,7 @@ const SignUpPage = () => {
     // Redirect if already authenticated
     useEffect(() => {
         if (user) {
-            router.push("/chat");
+            router.push("/course");
         }
     }, [user, router]);
 
@@ -32,7 +32,7 @@ const SignUpPage = () => {
             const result = await dispatch(signInWithGoogle(role)).unwrap();
             if (result) {
                 toast.success("Account created successfully!");
-                router.push("/chat");
+                router.push("/course");
             }
         } catch (err) {
             // Error handled by thunk
@@ -54,7 +54,7 @@ const SignUpPage = () => {
             ).unwrap();
             if (result) {
                 toast.success("Account created successfully!");
-                router.push("/chat");
+                router.push("/course");
             }
         } catch (err) {
             // Error handled by thunk

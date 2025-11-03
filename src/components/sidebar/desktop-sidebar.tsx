@@ -3,14 +3,19 @@
 import useSidebar from "@/hooks/use-sidebar";
 import { cn } from "@/utils";
 import ChatList from "./chat-list";
-import { useParams } from "next/navigation";
+import CourseList from "./course-list";
+import { useParams, usePathname } from "next/navigation";
 import { useAppSelector } from "@/lib/store/hooks";
 
 const DesktopSidebar = () => {
     const user = useAppSelector((state) => state.auth.user);
     const isLoading = useAppSelector((state) => state.auth.isLoading);
     const { id } = useParams<{ id: string }>();
+    const pathname = usePathname();
     const { isOpen, setIsOpen } = useSidebar();
+
+    // Determine if we're on course routes
+    const isCourseRoute = pathname?.startsWith('/course');
 
     // Show sidebar structure even when loading (optimistic UI)
     // Only hide if explicitly not authenticated after loading completes
@@ -37,7 +42,7 @@ const DesktopSidebar = () => {
                     visibility: isOpen ? "visible" : "hidden"
                 }}
             >
-                <ChatList />
+                {isCourseRoute ? <CourseList /> : <ChatList />}
             </div>
         </div>
     )
